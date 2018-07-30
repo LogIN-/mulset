@@ -1,0 +1,16 @@
+*.tar.gz
+*.Rhistory
+*.Rcheck
+*.Rproj.user
+*.Rproj.user
+*.RData
+
+*.o
+*.so
+
+.DS_Store
+*.history
+*.dll
+
+*.~lock.*
+*.csv#

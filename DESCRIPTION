@@ -1,0 +1,23 @@
+Package: mulset
+Version: 1.0.0
+Title: Multiset intersection generator
+Authors@R: person("Ivan", "Tomic", email = "unicoart@gmail.com", role = c("aut", "cre"))
+Description: Misc functions for multiset intersections
+Maintainer: LogIN- <unicoart@gmail.com>
+Depends: R (>= 3.5.0)
+URL: https://github.com/LogIN-/mulset
+BugReports: https://github.com/LogIN-/mulset/issues
+License: EUPL (>= 1.2)
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.0
+Roxygen: list(markdown = TRUE)
+VignetteBuilder: knitr
+RemoteType: github
+RemoteHost: https://api.github.com
+RemoteRepo: mulset
+RemoteUsername: LogIN-
+RemoteRef: master
+GithubRepo: mulset
+GithubUsername: LogIN-
+GithubRef: master
