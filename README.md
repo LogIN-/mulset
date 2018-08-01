@@ -38,7 +38,9 @@ this:
 | low     | 58  | female | 91        | 10        | NA        | 18        |
 | high    | 90  | male   | 20        | 0         | 5         | NA        |
 
-## The goal is to create **resamples** from this data above.
+The goal is to create **resamples** from this data above
+
+-----
 
 Such data as shown in example above would produce 10 **resamples** in
 following
@@ -57,11 +59,9 @@ way:
 | 2              | Feature 3, Feature 7            | 3,4     | 2              | 4          |
 | 3              | Feature 3, Feature 4, Feature 7 | 4       | 1              | 3          |
 
-<div style="text-align:center" data-markdown="1">
+-----
 
-    ![Pseudo code graph](images/mulset.png)
-
-</div>
+![Pseudo code graph](images/mulset.png)
 
 ## Usage Example
 
