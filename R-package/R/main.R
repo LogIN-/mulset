@@ -66,6 +66,7 @@ mulset <- function(data, exclude = NULL, include = c("samples", "samples_count",
 		for (featuresTempID in names(featureSets)) {
 			featuresTempValue <- featureSets[[featuresTempID]]
 
+			## featuresShared <- list_intersect(featuresTempValue, sampleFeatures)
 			featuresShared <- intersect(featuresTempValue, sampleFeatures)
 
 			if (length(featuresShared) > 0) {
@@ -109,16 +110,16 @@ mulset <- function(data, exclude = NULL, include = c("samples", "samples_count",
 	return(featureSetsShared)
 }
 
- ## library(data.table)
- ## library(gtools)
- ## library(digest)
- ## source("./utils.R")
- ## mulsetDemo <-fread("../data/mulsetDemo.csv", header = T, sep = ',', stringsAsFactors = FALSE, data.table = FALSE)
- ## exclude <- c("outcome", "age", "gender")
- ## ## mulsetDemo <-fread("../data/Example_500k_51f.csv", header = T, sep = ',', stringsAsFactors = FALSE, data.table = FALSE)
- ## ## exclude <- c("my_outcome_column","Spol","Starost","study_year","hpv_status","batch_id")
- ## system.time({ 
- ## 	resamples <- mulset(mulsetDemo, exclude = exclude, include = c("samples_count", "datapoints"), maxIntersections = 250, hashMethod = "sha1", names = FALSE)
- ## 	resamples <- as.data.frame(t(sapply(resamples,c)))
- ## })
- ## print(resamples)
+## library(data.table)
+## library(gtools)
+## library(digest)
+## source("./utils.R")
+## mulsetDemo <-fread("../data/mulsetDemo.csv", header = T, sep = ',', stringsAsFactors = FALSE, data.table = FALSE)
+## exclude <- c("outcome", "age", "gender")
+## ## mulsetDemo <-fread("../data/Example_500k_51f.csv", header = T, sep = ',', stringsAsFactors = FALSE, data.table = FALSE)
+## ## exclude <- c("my_outcome_column","Spol","Starost","study_year","hpv_status","batch_id")
+## system.time({ 
+## 	resamples <- mulset(mulsetDemo, exclude = exclude, include = c("samples_count", "datapoints"), maxIntersections = 250, hashMethod = "sha1", names = FALSE)
+## 	resamples <- as.data.frame(t(sapply(resamples,c)))
+## })
+## print(resamples)
