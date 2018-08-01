@@ -8,6 +8,8 @@
   height="32"
   style="float:left;"> \# mulset
 
+</h1>
+
 Is an R package that allows you to generate specific type of multi-set
 intersections. It searches for multi set intersections between rows and
 corresponding column identifiers.
@@ -53,6 +55,13 @@ way:
 | 2              | Feature 3, Feature 7            | 3,4     | 2              | 4          |
 | 3              | Feature 3, Feature 4, Feature 7 | 4       | 1              | 3          |
 
+<style type='text/css'>
+img[src$="centerme"] {
+    display:block;
+    margin: 0 auto;
+}
+</style>
+
 <p align="center">
 
 ![Pseudo graph](images/mulset.png?style=centerme)
@@ -96,14 +105,3 @@ is licensed by
 3.0 BY</a>
 
 </div>
-
-(setq markdown-xhtml-header-content "
-
-<style type='text/css'>
-img[src$="centerme"] {
-    display:block;
-    margin: 0 auto;
-}
-</style>
-
-")
