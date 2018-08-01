@@ -26,7 +26,7 @@ After you have R installed you can install **mulset** directly from **github** w
 
 ```{r gh-installation, eval = FALSE}
 install.packages("devtools")
-devtools::install_github("LogIN-/mulset")
+devtools::install_github("LogIN-/mulset", subdir = 'R-package')
 ```
 
 ## How it works?

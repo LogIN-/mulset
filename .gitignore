@@ -15,3 +15,5 @@
 *.~lock.*
 *.csv#
 Example_500k_51f.csv
+R-package.Rcheck/
+R-package.Rcheck

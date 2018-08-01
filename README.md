@@ -22,7 +22,7 @@ from **github** with use of following commands:
 
 ``` r
 install.packages("devtools")
-devtools::install_github("LogIN-/mulset")
+devtools::install_github("LogIN-/mulset", subdir = 'R-package')
 ```
 
 ## How it works?
@@ -69,6 +69,7 @@ way:
 library("mulset")
 ## Using provided demo data
 data(mulsetDemo)
+#> Warning in data(mulsetDemo): data set 'mulsetDemo' not found
 resamples <- mulset(mulsetDemo, exclude = c("outcome", "age", "gender"), 250)
 
 ## or from CSV file

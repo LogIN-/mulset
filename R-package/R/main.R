@@ -11,21 +11,16 @@
 #' @param maxIntersections Maximum number of unique multi-set intersections to generate
 #' @param hashMethod Hashing method to use for unique sets identification. Available choices: md5 (default),sha1,crc32,sha256,sha512,xxhash32,xxhash64,murmur32
 #' @param names Should we reset return list keys or keep original features hash as a key value
-#' 
 #' @keywords mulset, multi-set intersection, table intersection, missing data
-#' 
 #' @return If any intersections are found it returns a list that contains all available multi-set intersections
 #' 	You can convert this to data-frame following example provided or use it as it is.
-#' 
 #' @importFrom gtools mixedsort
 #' @importFrom digest digest
-#' 
 #' @examples
 #' data(mulsetDemo)
 #' resamples <- mulset(mulsetDemo, exclude = c("outcome", "age", "gender"), 250)
 #' 
 #' resamplesFrame <- as.data.frame(t(sapply(resamples,c)))
-#' 
 #' @export
 mulset <- function(data, exclude = NULL, include = c("samples", "samples_count", "datapoints"), maxIntersections = NULL, hashMethod = "md5", names = FALSE){
 	if(!is.data.frame(data)){
@@ -92,7 +87,7 @@ mulset <- function(data, exclude = NULL, include = c("samples", "samples_count",
 		## Get number of samples for each feature set
 		for (key in names(featureSetsShared)) {
 
-			queryData <- data[complete.cases(featureSetsShared[[key]]$features), ] 
+			queryData <- data[stats::complete.cases(featureSetsShared[[key]]$features), ] 
 			totalSamples <- nrow(queryData)
 
 			if('samples' %in% include){
