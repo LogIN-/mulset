@@ -10,9 +10,9 @@
 
 </h1>
 
-Is an R package that allows you to generate specific type of multi-set
-intersections. It searches for multi set intersections between rows and
-corresponding column identifiers.
+> Is an R package that allows you to generate specific type of multi-set
+> intersections. It searches for multi set intersections between rows
+> and corresponding column identifiers.
 
 ## Installation
 
@@ -38,8 +38,10 @@ this:
 | low     | 58  | female | 91        | 10        | NA        | 18        |
 | high    | 90  | male   | 20        | 0         | 5         | NA        |
 
-The goal is to create **resamples** from this data above. Such data as
-shown in example above would produce 10 **resamples** in following
+## The goal is to create **resamples** from this data above.
+
+Such data as shown in example above would produce 10 **resamples** in
+following
 way:
 
 | feature\_count | features                        | samples | samples\_count | datapoints |
@@ -55,18 +57,11 @@ way:
 | 2              | Feature 3, Feature 7            | 3,4     | 2              | 4          |
 | 3              | Feature 3, Feature 4, Feature 7 | 4       | 1              | 3          |
 
-<style type='text/css'>
-img[src$="centerme"] {
-    display:block;
-    margin: 0 auto;
-}
-</style>
+<div style="text-align:center" data-markdown="1">
 
-<p align="center">
+    ![Pseudo code graph](images/mulset.png)
 
-![Pseudo graph](images/mulset.png?style=centerme)
-
-</p>
+</div>
 
 ## Usage Example
 
