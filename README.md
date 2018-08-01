@@ -1,7 +1,12 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# mulset
+<h1>
+
+<img src="images/intersect_32.png"
+  width="32"
+  height="32"
+  style="float:left;"> \# mulset
 
 Is an R package that allows you to generate specific type of multi-set
 intersections. It searches for multi set intersections between rows and
@@ -50,7 +55,7 @@ way:
 
 <p align="center">
 
-![Pseudo graph](mulset.png)
+![Pseudo graph](images/mulset.png?style=centerme)
 
 </p>
 
@@ -78,3 +83,27 @@ GitHub.
 
 **mulset** source-code uses the EUROPEAN UNION PUBLIC LICENCE, see our
 **LICENSE** file.
+
+## Credits
+
+<div>
+
+Icons made by
+<a href="http://www.freepik.com" title="Freepik">Freepik</a> from
+<a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+is licensed by
+<a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC
+3.0 BY</a>
+
+</div>
+
+(setq markdown-xhtml-header-content "
+
+<style type='text/css'>
+img[src$="centerme"] {
+    display:block;
+    margin: 0 auto;
+}
+</style>
+
+")
