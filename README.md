@@ -27,7 +27,7 @@ devtools::install_github("LogIN-/mulset")
 
 ## How it works?
 
-This is a basic example which shows you how to solve a common problem:
+This is a basic example which shows you how to solve a common problem.
 Demo data used with an example looks like
 this:
 
@@ -59,7 +59,7 @@ way:
 | 2              | Feature 3, Feature 7            | 3,4     | 2              | 4          |
 | 3              | Feature 3, Feature 4, Feature 7 | 4       | 1              | 3          |
 
------
+## proof of principle:
 
 ![Pseudo code graph](images/mulset.png)
 
