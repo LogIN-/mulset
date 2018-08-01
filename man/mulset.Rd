@@ -4,18 +4,18 @@
 \alias{mulset}
 \title{A mulset function}
 \usage{
-mulset(data, exclude = c("outcome", "age", "gender"),
-  maxIntersections = NULL)
+mulset(data, exclude = NULL, maxIntersections = NULL)
 }
 \arguments{
-\item{data}{Data-frame containing your data}
+\item{data}{Data frame containing your data}
 
 \item{exclude}{List of columns to exclude from analysis}
 
 \item{maxIntersections}{Maximum number of unique multi-set intersections to generate}
 }
 \value{
-If any intersections around found it returns a list that contains all available multi-sets
+If any intersections are found it returns a list that contains all available multi-set intersections
+You can convert this to data-frame following example provided or use it as it is.
 }
 \description{
 \code{mulset()} returns all multi-set intersections it found.
@@ -24,9 +24,14 @@ If any intersections around found it returns a list that contains all available 
 This function allows you to generate specific type of multi-set intersections.
 }
 \examples{
+data(mulsetDemo)
+resamples <- mulset(mulsetDemo, exclude = c("outcome", "age", "gender"), 250)
 
-data <- data.table::fread("../data/Example_100.csv", header = T, sep = ',', stringsAsFactors = FALSE, data.table = FALSE)
-resamples <- mulset(data, exclude = c("outcome", "age", "gender"), 250)
+resamplesFrame <- data.frame(t(sapply(resamples,c)))
 
 }
-\keyword{mulset}
+\keyword{intersection}
+\keyword{intersection,}
+\keyword{mulset,}
+\keyword{multi-set}
+\keyword{table}

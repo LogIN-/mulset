@@ -3,25 +3,41 @@
 #' `mulset()` returns all multi-set intersections it found.
 #'
 #' This function allows you to generate specific type of multi-set intersections.
+#' It searches for multi set intersections between rows and column identifiers.
 #' 
-#' @param data Data-frame containing your data
-#' @param exclude List of columns to exclude from analysis
+#' @param data Data frame containing your incomplete data.
+#' @param exclude Vector  of  strings  containing  one  or  more  variable  names  from names(data)
+#' @param include List of attributes to return in results. Possible values are: c("samples", "samples_count", "datapoints"). If parameter is set to NULL only features will be returned.
 #' @param maxIntersections Maximum number of unique multi-set intersections to generate
-#' @keywords mulset
-#' @export mulset
-#' @return If any intersections around found it returns a list that contains all available multi-sets
-#' @examples
+#' @param hashMethod Hashing method to use for unique sets identification. Available choices: md5 (default),sha1,crc32,sha256,sha512,xxhash32,xxhash64,murmur32
+#' @param names Should we reset return list keys or keep original features hash as a key value
 #' 
-#' data <- data.table::fread("../data/Example_100.csv", header = T, sep = ',', stringsAsFactors = FALSE, data.table = FALSE)
-#' resamples <- mulset(data, exclude = c("outcome", "age", "gender"), 250)
+#' @keywords mulset, multi-set intersection, table intersection, missing data
+#' 
+#' @return If any intersections are found it returns a list that contains all available multi-set intersections
+#' 	You can convert this to data-frame following example provided or use it as it is.
 #' 
 #' @importFrom gtools mixedsort
 #' @importFrom digest digest
-
-
-mulset <- function(data, exclude = c("outcome", "age", "gender"), maxIntersections = NULL){
-	data <- data[ , !(names(data) %in% exclude)]
+#' 
+#' @examples
+#' data(mulsetDemo)
+#' resamples <- mulset(mulsetDemo, exclude = c("outcome", "age", "gender"), 250)
+#' 
+#' resamplesFrame <- as.data.frame(t(sapply(resamples,c)))
+#' 
+#' @export
+mulset <- function(data, exclude = NULL, include = c("samples", "samples_count", "datapoints"), maxIntersections = NULL, hashMethod = "md5", names = FALSE){
+	if(!is.data.frame(data)){
+		 stop("data argument must be a valid data frame. Please check mulsetDemo data that is distributed with a package.")
+	}
+	if(!is.null(exclude) && length(exclude) > 0){
+		data <- data[ , !(names(data) %in% exclude)]
+	}
+	## Sort column names
 	data <- data[, mixedsort(names(data))]
+	dataRowsCount <- nrow(data)
+
 	# Placeholder for combination across different subject feature sets
 	featureSets <- list()
 
@@ -29,19 +45,20 @@ mulset <- function(data, exclude = c("outcome", "age", "gender"), maxIntersectio
 	featureSetsShared <- list()
 	intersectCounter <- 0
 
-	for (i in 1:nrow(data)){   
+	for (i in 1:dataRowsCount){   
 		if (!is.null(maxIntersections) && maxIntersections > 0) {
 			if(intersectCounter >= maxIntersections){
-				next()
+				break
 			}
 		}
 
 		sample <- data[i, ]
+		## Remove all columns if they are not specific data type, in this case check for numbers
 		sample <- sample[ , apply(sample, 2, function(x) any(isNumeric(x)))]
 		if(ncol(sample) == 0) { next() }
 
 		sampleFeatures <- names(sample)
-		featuresID <- digest(paste(sampleFeatures, sep = ",", collapse = ","), algo="sha512", serialize=F, file=FALSE)
+		featuresID <- digest(paste(sampleFeatures, sep = ",", collapse = ","), algo=hashMethod, serialize=F, file=FALSE)
 
 		if (is.null(featureSets[[featuresID]])) {
 			featureSets[[featuresID]] <- sampleFeatures;
@@ -55,17 +72,15 @@ mulset <- function(data, exclude = c("outcome", "age", "gender"), maxIntersectio
 			featuresTempValue <- featureSets[[featuresTempID]]
 
 			featuresShared <- intersect(featuresTempValue, sampleFeatures)
+
 			if (length(featuresShared) > 0) {
 				featuresShared <- mixedsort(featuresShared)
-				featuresSharedID =  digest(paste(featuresShared, sep = ",", collapse = ","), algo="sha512", serialize=F, file=FALSE)
+				featuresSharedID =  digest(paste(featuresShared, sep = ",", collapse = ","), algo=hashMethod, serialize=F, file=FALSE)
 		
 				if (is.null(featureSetsShared[[featuresSharedID]])) {
 					featureSetsShared[[featuresSharedID]] <- list(
-						totalFeatures = length(featuresShared),
-						listFeatures = featuresShared,
-						listSamples = c(),
-						totalSamples = 0,
-						totalDatapoints = 0
+						feature_count = length(featuresShared),
+						features = featuresShared
 					)
 					intersectCounter = intersectCounter + 1
 				}
@@ -73,29 +88,42 @@ mulset <- function(data, exclude = c("outcome", "age", "gender"), maxIntersectio
 		}
 	}
 
-	## Get number of samples for each feature set
-	for (key in names(featureSetsShared)) {
-		value <- featureSetsShared[[key]]
+	if(!is.null(include) && length(include) > 0){
+		## Get number of samples for each feature set
+		for (key in names(featureSetsShared)) {
 
-		for (c in 1:nrow(data)){   
-			sample <- data[c, ]
-			sample <- sample[ , apply(sample, 2, function(x) any(isNumeric(x)))]
-			if(ncol(sample) == 0) { next() }
+			queryData <- data[complete.cases(featureSetsShared[[key]]$features), ] 
+			totalSamples <- nrow(queryData)
 
-			featuresShared <- intersect(value$listFeatures, names(sample));
-
-			if (length(featuresShared) == value$totalFeatures) {
-				featureSetsShared[[key]]$totalSamples <- featureSetsShared[[key]]$totalSamples + 1;
-				featureSetsShared[[key]]$listSamples <- c(featureSetsShared[[key]]$listSamples, c)
+			if('samples' %in% include){
+				featureSetsShared[[key]]$samples <- as.numeric(rownames(queryData))
+			}
+			if('samples_count' %in% include){
+				featureSetsShared[[key]]$samples_count <- as.numeric(totalSamples)
+			}
+			if('datapoints' %in% include){
+				featureSetsShared[[key]]$datapoints <- as.numeric((totalSamples * featureSetsShared[[key]]$feature_count));
 			}
 		}
-		featureSetsShared[[key]]$totalDatapoints = (featureSetsShared[[key]]$totalSamples * featureSetsShared[[key]]$totalFeatures);
-		#featureSetsShared[$key]['listSamples'] = $this->generateRanges($featureSetsShared[$key]['listSamples']);
 	}
+
+	if(!isTRUE(names)){
+		names(featureSetsShared) <- seq(1, length(featureSetsShared))	
+	}	
 
 	return(featureSetsShared)
 }
 
-## data <- data.table::fread("../data/Example_100.csv", header = T, sep = ',', stringsAsFactors = FALSE, data.table = FALSE)
-## resamples <- mulset(data, exclude = c("outcome", "age", "gender"))
-## print(resamples)
+ ## library(data.table)
+ ## library(gtools)
+ ## library(digest)
+ ## source("./utils.R")
+ ## mulsetDemo <-fread("../data/mulsetDemo.csv", header = T, sep = ',', stringsAsFactors = FALSE, data.table = FALSE)
+ ## exclude <- c("outcome", "age", "gender")
+ ## ## mulsetDemo <-fread("../data/Example_500k_51f.csv", header = T, sep = ',', stringsAsFactors = FALSE, data.table = FALSE)
+ ## ## exclude <- c("my_outcome_column","Spol","Starost","study_year","hpv_status","batch_id")
+ ## system.time({ 
+ ## 	resamples <- mulset(mulsetDemo, exclude = exclude, include = c("samples_count", "datapoints"), maxIntersections = 250, hashMethod = "sha1", names = FALSE)
+ ## 	resamples <- as.data.frame(t(sapply(resamples,c)))
+ ## })
+ ## print(resamples)

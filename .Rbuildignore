@@ -3,3 +3,7 @@
 cran-comments.md
 ^README\.Rmd$
 ^README-.*\.png$
+./.git
+LICENCE
+Example_500k_51f.csv
+mulset.png

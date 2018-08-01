@@ -1,23 +1,27 @@
 Package: mulset
 Version: 1.0.0
-Title: Multiset intersection generator
-Authors@R: person("Ivan", "Tomic", email = "unicoart@gmail.com", role = c("aut", "cre"))
-Description: Misc functions for multiset intersections
-Maintainer: LogIN- <unicoart@gmail.com>
-Depends: R (>= 3.5.0)
+Title: Multiset Intersection Generator
+Date: 2019-07-30
+Authors@R: c(person("Ivan", "Tomić", role=c("aut","cre","cph"), email="unicoart@gmail.com"))
+Author: Ivan Tomić
+Description: Multi-set intersection generator. Use this package to generate multiple sets of your data that has NA values.
+	It will analyze the data-frame looking for intersections between rows and columns
+	and return needed information that you need to generate multiple sets.
+Maintainer: Ivan Tomić <unicoart@gmail.com>
+Packaged: Ivan Tomić
+Imports:
+	gtools,
+	digest
+Depends:
+	R (>= 3.5.0)
+Suggests:
+    knitr
 URL: https://github.com/LogIN-/mulset
 BugReports: https://github.com/LogIN-/mulset/issues
-License: EUPL (>= 1.2)
+License: file LICENSE
 Encoding: UTF-8
-LazyData: true
+LazyLoad: yes
+LazyData: yes
 RoxygenNote: 6.1.0
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
-RemoteType: github
-RemoteHost: https://api.github.com
-RemoteRepo: mulset
-RemoteUsername: LogIN-
-RemoteRef: master
-GithubRepo: mulset
-GithubUsername: LogIN-
-GithubRef: master
