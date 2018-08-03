@@ -2,7 +2,5 @@
 
 export(intersection)
 export(mulset)
-importFrom(Rcpp,sourceCpp)
 importFrom(digest,digest)
 importFrom(gtools,mixedsort)
-useDynLib(mulset)
