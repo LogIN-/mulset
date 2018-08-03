@@ -1,15 +1,15 @@
 #' A mulset function
 #'
-#' `mulset()` returns all multi-set intersections it found.
+#' `mulset()` returns all multi-set intersections
 #'
 #' This function allows you to generate specific type of multi-set intersections.
 #' It searches for multi set intersections between rows and column identifiers. If no NA values are present only 1 dataset is returned as expected.
 #' 
-#' @param data Data frame containing your incomplete data.
-#' @param exclude Vector  of  strings  containing  one  or  more  variable  names  from names(data)
-#' @param include List of attributes to return in results. Possible values are: c("samples", "samples_count", "datapoints"). If parameter is set to NULL only features will be returned.
-#' @param maxIntersections Maximum number of unique multi-set intersections to generate
-#' @param hashMethod Hashing method to use for unique sets identification. Available choices: md5 (default),sha1,crc32,sha256,sha512,xxhash32,xxhash64,murmur32
+#' @param data Data frame containing your data
+#' @param exclude Vector containing  one  or  more  variable  names  from `names(data)`
+#' @param include List of attributes which will be shown in results. Possible values are: c("samples", "samples_count", "datapoints"). If parameter is set to NULL only c("features", "feature_count") will be returned.
+#' @param maxIntersections Maximum number of unique datasets to generate, if NULL all datasets will be generated
+#' @param hashMethod Hashing method to use for unique sets identification. Available choices: md5(default), sha1, crc32, sha256, sha512, xxhash32, xxhash64, murmur32
 #' @param resetHashIDs Should we reset return list keys or keep original features hash as a key value
 #' @keywords mulset, multi-set intersection, table intersection, missing data
 #' @return If any intersections are found it returns a list that contains all available multi-set intersections
@@ -19,7 +19,7 @@
 #' @examples
 #' data(mulsetDemo)
 #' print(head(mulsetDemo))
-#' resamples <- mulset(mulsetDemo, exclude = c("outcome", "age", "gender"), 250)
+#' resamples <- mulset(mulsetDemo, exclude = c("outcome", "age", "gender"), maxIntersections = 250)
 #' ## Loop through returned list or convert it to data-frame
 #' resamplesFrame <- as.data.frame(t(sapply(resamples,c)))
 #' @export mulset
@@ -47,7 +47,6 @@ mulset <- function(data, exclude = NULL, include = c("samples", "samples_count",
 				break
 			}
 		}
-
 		sample <- data[i, ]
 		## Remove all columns if they are not specific data type, in this case check for numbers
 		sample <- sample[ , apply(sample, 2, function(x) any(isNumeric(x)))]
@@ -61,7 +60,6 @@ mulset <- function(data, exclude = NULL, include = c("samples", "samples_count",
 		} else {
 			next()
 		}
-
 		featureSets <- featureSets[mixedsort(names(featureSets))]
 
 		for (featuresTempID in names(featureSets)) {
@@ -79,7 +77,12 @@ mulset <- function(data, exclude = NULL, include = c("samples", "samples_count",
 						feature_count = length(featuresShared),
 						features = featuresShared
 					)
-					intersectCounter = intersectCounter + 1
+					if (!is.null(maxIntersections) && maxIntersections > 0) {
+						intersectCounter <- intersectCounter + 1
+						if(intersectCounter == maxIntersections){
+							break
+						}
+					}
 				}
 			}
 		}
@@ -122,7 +125,7 @@ mulset <- function(data, exclude = NULL, include = c("samples", "samples_count",
 ##	
 ##	
 ##	system.time({ 
-##		resamples <- mulset(mulsetDemo, exclude = exclude, include = c("samples_count", "datapoints"), maxIntersections = 250, hashMethod = "sha1", resetHashIDs = FALSE)
+##		resamples <- mulset(mulsetDemo, exclude = exclude, include = c("samples_count", "datapoints"), maxIntersections = 2, hashMethod = "sha1", resetHashIDs = FALSE)
 ##		resamples <- as.data.frame(t(sapply(resamples,c)))
 ##	})
 ##	resamples
