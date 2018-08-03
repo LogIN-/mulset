@@ -9,13 +9,11 @@ Maintainer: Ivan Tomic <info@ivantomic.com>
 Packaged: Ivan Tomic <info@ivantomic.com>
 Imports:
 	gtools,
-	digest,
-    Rcpp
+	digest
 Depends:
 	R (>= 3.4.0)
 Suggests:
     knitr
-LinkingTo: Rcpp
 URL: https://github.com/LogIN-/mulset
 BugReports: https://github.com/LogIN-/mulset/issues
 License: EUPL (>=1.2)

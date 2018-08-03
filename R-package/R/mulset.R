@@ -16,8 +16,6 @@
 #' 	You can convert this to data-frame following example provided or use it as it is.
 #' @importFrom gtools mixedsort
 #' @importFrom digest digest
-#' @useDynLib mulset
-#' @importFrom Rcpp sourceCpp
 #' @examples
 #' data(mulsetDemo)
 #' print(head(mulsetDemo))
@@ -43,7 +41,7 @@ mulset <- function(data, exclude = NULL, include = c("samples", "samples_count",
 	featureSetsShared <- list()
 	intersectCounter <- 0
 
-	for (i in 1:dataRowsCount){   
+	for (i in seq_len(dataRowsCount)){   
 		if (!is.null(maxIntersections) && maxIntersections > 0) {
 			if(intersectCounter >= maxIntersections){
 				break
@@ -113,23 +111,21 @@ mulset <- function(data, exclude = NULL, include = c("samples", "samples_count",
 	return(featureSetsShared)
 }
 
-# library(data.table)
-# library(gtools)
-# library(digest)
-# source("./utils.R")
-# source("./intersection.R")
-# source("./RcppExports.R")
-# mulsetDemo <-fread("../data/mulsetDemo.csv", header = T, sep = ',', stringsAsFactors = FALSE, data.table = FALSE)
-# exclude <- c("outcome", "age", "gender")
-# 
-# mulsetDemo <-fread("../data/EY2_trans_804f.csv", header = T, sep = ',', stringsAsFactors = FALSE, data.table = FALSE)
-# exclude <- c("age","Gender","CMV")
-# 
-# system.time({ 
-# 	resamples <- mulset(mulsetDemo, exclude = exclude, include = c("samples_count", "datapoints"), maxIntersections = 250, hashMethod = "sha1", resetHashIDs = FALSE)
-# 	resamples <- as.data.frame(t(sapply(resamples,c)))
-# })
-
+##	library(data.table)
+##	library(gtools)
+##	library(digest)
+##	source("./utils.R")
+##	source("./intersection.R")
+##	source("./RcppExports.R")
+##	mulsetDemo <-fread("../data/mulsetDemo.csv", header = T, sep = ',', stringsAsFactors = FALSE, data.table = FALSE)
+##	exclude <- c("outcome", "age", "gender")
+##	
+##	
+##	system.time({ 
+##		resamples <- mulset(mulsetDemo, exclude = exclude, include = c("samples_count", "datapoints"), maxIntersections = 250, hashMethod = "sha1", resetHashIDs = FALSE)
+##		resamples <- as.data.frame(t(sapply(resamples,c)))
+##	})
+##	resamples
 ##system.time( replicate(50, mulset(mulsetDemo, exclude = exclude, include = c("samples_count", "datapoints"), maxIntersections = 250, hashMethod = "md5", resetHashIDs = TRUE) ) )
 
 ## > system.time( replicate(10, mulset(mulsetDemo, exclude = c("outcome", "age", "gender"), 250) ) )
