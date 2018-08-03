@@ -16,6 +16,8 @@
 #' 	You can convert this to data-frame following example provided or use it as it is.
 #' @importFrom gtools mixedsort
 #' @importFrom digest digest
+#' @useDynLib mulset
+#' @importFrom Rcpp sourceCpp
 #' @examples
 #' data(mulsetDemo)
 #' print(head(mulsetDemo))
