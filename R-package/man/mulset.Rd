@@ -9,15 +9,15 @@ mulset(data, exclude = NULL, include = c("samples", "samples_count",
   resetHashIDs = FALSE)
 }
 \arguments{
-\item{data}{Data frame containing your incomplete data.}
+\item{data}{Data frame containing your data}
 
-\item{exclude}{Vector  of  strings  containing  one  or  more  variable  names  from names(data)}
+\item{exclude}{Vector containing  one  or  more  variable  names  from \code{names(data)}}
 
-\item{include}{List of attributes to return in results. Possible values are: c("samples", "samples_count", "datapoints"). If parameter is set to NULL only features will be returned.}
+\item{include}{List of attributes which will be shown in results. Possible values are: c("samples", "samples_count", "datapoints"). If parameter is set to NULL only c("features", "feature_count") will be returned.}
 
-\item{maxIntersections}{Maximum number of unique multi-set intersections to generate}
+\item{maxIntersections}{Maximum number of unique datasets to generate, if NULL all datasets will be generated}
 
-\item{hashMethod}{Hashing method to use for unique sets identification. Available choices: md5 (default),sha1,crc32,sha256,sha512,xxhash32,xxhash64,murmur32}
+\item{hashMethod}{Hashing method to use for unique sets identification. Available choices: md5(default), sha1, crc32, sha256, sha512, xxhash32, xxhash64, murmur32}
 
 \item{resetHashIDs}{Should we reset return list keys or keep original features hash as a key value}
 }
@@ -26,7 +26,7 @@ If any intersections are found it returns a list that contains all available mul
 You can convert this to data-frame following example provided or use it as it is.
 }
 \description{
-\code{mulset()} returns all multi-set intersections it found.
+\code{mulset()} returns all multi-set intersections
 }
 \details{
 This function allows you to generate specific type of multi-set intersections.
@@ -35,7 +35,7 @@ It searches for multi set intersections between rows and column identifiers. If 
 \examples{
 data(mulsetDemo)
 print(head(mulsetDemo))
-resamples <- mulset(mulsetDemo, exclude = c("outcome", "age", "gender"), 250)
+resamples <- mulset(mulsetDemo, exclude = c("outcome", "age", "gender"), maxIntersections = 250)
 ## Loop through returned list or convert it to data-frame
 resamplesFrame <- as.data.frame(t(sapply(resamples,c)))
 }
