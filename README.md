@@ -69,7 +69,6 @@ way:
 library("mulset")
 ## Using provided demo data
 data(mulsetDemo)
-#> Warning in data(mulsetDemo): data set 'mulsetDemo' not found
 resamples <- mulset(mulsetDemo, exclude = c("outcome", "age", "gender"), 250)
 
 ## or from CSV file

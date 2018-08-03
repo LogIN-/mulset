@@ -3,26 +3,29 @@
 #' `mulset()` returns all multi-set intersections it found.
 #'
 #' This function allows you to generate specific type of multi-set intersections.
-#' It searches for multi set intersections between rows and column identifiers.
+#' It searches for multi set intersections between rows and column identifiers. If no NA values are present only 1 dataset is returned as expected.
 #' 
 #' @param data Data frame containing your incomplete data.
 #' @param exclude Vector  of  strings  containing  one  or  more  variable  names  from names(data)
 #' @param include List of attributes to return in results. Possible values are: c("samples", "samples_count", "datapoints"). If parameter is set to NULL only features will be returned.
 #' @param maxIntersections Maximum number of unique multi-set intersections to generate
 #' @param hashMethod Hashing method to use for unique sets identification. Available choices: md5 (default),sha1,crc32,sha256,sha512,xxhash32,xxhash64,murmur32
-#' @param names Should we reset return list keys or keep original features hash as a key value
+#' @param resetHashIDs Should we reset return list keys or keep original features hash as a key value
 #' @keywords mulset, multi-set intersection, table intersection, missing data
 #' @return If any intersections are found it returns a list that contains all available multi-set intersections
 #' 	You can convert this to data-frame following example provided or use it as it is.
 #' @importFrom gtools mixedsort
 #' @importFrom digest digest
+#' @useDynLib mulset
+#' @importFrom Rcpp sourceCpp
 #' @examples
 #' data(mulsetDemo)
+#' print(head(mulsetDemo))
 #' resamples <- mulset(mulsetDemo, exclude = c("outcome", "age", "gender"), 250)
-#' 
+#' ## Loop through returned list or convert it to data-frame
 #' resamplesFrame <- as.data.frame(t(sapply(resamples,c)))
-#' @export
-mulset <- function(data, exclude = NULL, include = c("samples", "samples_count", "datapoints"), maxIntersections = NULL, hashMethod = "md5", names = FALSE){
+#' @export mulset
+mulset <- function(data, exclude = NULL, include = c("samples", "samples_count", "datapoints"), maxIntersections = NULL, hashMethod = "md5", resetHashIDs = FALSE){
 	if(!is.data.frame(data)){
 		 stop("data argument must be a valid data frame. Please check mulsetDemo data that is distributed with a package.")
 	}
@@ -66,8 +69,8 @@ mulset <- function(data, exclude = NULL, include = c("samples", "samples_count",
 		for (featuresTempID in names(featureSets)) {
 			featuresTempValue <- featureSets[[featuresTempID]]
 
-			## featuresShared <- list_intersect(featuresTempValue, sampleFeatures)
 			featuresShared <- intersect(featuresTempValue, sampleFeatures)
+			## featuresShared <- intersection(featuresTempValue, sampleFeatures)
 
 			if (length(featuresShared) > 0) {
 				featuresShared <- mixedsort(featuresShared)
@@ -103,23 +106,38 @@ mulset <- function(data, exclude = NULL, include = c("samples", "samples_count",
 		}
 	}
 
-	if(!isTRUE(names)){
+	if(!isTRUE(resetHashIDs)){
 		names(featureSetsShared) <- seq(1, length(featureSetsShared))	
 	}	
 
 	return(featureSetsShared)
 }
 
-## library(data.table)
-## library(gtools)
-## library(digest)
-## source("./utils.R")
-## mulsetDemo <-fread("../data/mulsetDemo.csv", header = T, sep = ',', stringsAsFactors = FALSE, data.table = FALSE)
-## exclude <- c("outcome", "age", "gender")
-## ## mulsetDemo <-fread("../data/Example_500k_51f.csv", header = T, sep = ',', stringsAsFactors = FALSE, data.table = FALSE)
-## ## exclude <- c("my_outcome_column","Spol","Starost","study_year","hpv_status","batch_id")
-## system.time({ 
-## 	resamples <- mulset(mulsetDemo, exclude = exclude, include = c("samples_count", "datapoints"), maxIntersections = 250, hashMethod = "sha1", names = FALSE)
-## 	resamples <- as.data.frame(t(sapply(resamples,c)))
-## })
-## print(resamples)
+# library(data.table)
+# library(gtools)
+# library(digest)
+# source("./utils.R")
+# source("./intersection.R")
+# source("./RcppExports.R")
+# mulsetDemo <-fread("../data/mulsetDemo.csv", header = T, sep = ',', stringsAsFactors = FALSE, data.table = FALSE)
+# exclude <- c("outcome", "age", "gender")
+# 
+# mulsetDemo <-fread("../data/EY2_trans_804f.csv", header = T, sep = ',', stringsAsFactors = FALSE, data.table = FALSE)
+# exclude <- c("age","Gender","CMV")
+# 
+# system.time({ 
+# 	resamples <- mulset(mulsetDemo, exclude = exclude, include = c("samples_count", "datapoints"), maxIntersections = 250, hashMethod = "sha1", resetHashIDs = FALSE)
+# 	resamples <- as.data.frame(t(sapply(resamples,c)))
+# })
+
+##system.time( replicate(50, mulset(mulsetDemo, exclude = exclude, include = c("samples_count", "datapoints"), maxIntersections = 250, hashMethod = "md5", resetHashIDs = TRUE) ) )
+
+## > system.time( replicate(10, mulset(mulsetDemo, exclude = c("outcome", "age", "gender"), 250) ) )
+##    user  system elapsed 
+##   0.145   0.000   0.146 
+## > system.time( replicate(100, mulset(mulsetDemo, exclude = c("outcome", "age", "gender"), 250) ) )
+##    user  system elapsed 
+##   1.535   0.003   1.538 
+## > system.time( replicate(250, mulset(mulsetDemo, exclude = c("outcome", "age", "gender"), 250) ) )
+##    user  system elapsed 
+##   3.655   0.000   3.655 

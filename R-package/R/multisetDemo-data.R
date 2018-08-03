@@ -1,5 +1,5 @@
-#' Demo data from mulset package.
-#' Used in examples, regarding missing value columns.
+#' Demo data set from mulset package.
+#' This data is used in this package examples. It consist of 4x4 feature matrix + additional dummy columns that can be used for testing.
 #' 
 #' @docType data
 #'
@@ -9,6 +9,7 @@
 #'
 #' @examples
 #' data(mulsetDemo)
-#' resamples <- mulset(mulsetDemo, exclude = c("outcome", "age", "gender"), 250)
+#' print(head(mulsetDemo))
+#' resamples <- mulset(mulsetDemo, exclude = c("outcome", "age", "gender"))
 #' 
 "mulsetDemo"

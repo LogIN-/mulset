@@ -1,0 +1,16 @@
+citHeader("To cite mulset in publications use:")
+
+citEntry(entry = "Article",
+  title        = "{mulset}: An {R} Package for Intersection Generation",
+  author       = personList(as.person("Adriana Tomic")),
+  journal      = "",
+  year         = "",
+  volume       = "",
+  number       = "",
+  pages        = "",
+  url          = "http://www.jstatsoft.org/v54/i02/",
+
+  textVersion  =
+  paste("Adriana Tomic",
+        "mulset: An R Package for Intersection Generation")
+)

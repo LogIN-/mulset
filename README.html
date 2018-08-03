@@ -759,13 +759,12 @@ body {
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;mulset&quot;</span>)</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2">## Using provided demo data</a>
 <a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw">data</span>(mulsetDemo)</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">#&gt; Warning in data(mulsetDemo): data set 'mulsetDemo' not found</span></a>
-<a class="sourceLine" id="cb2-5" data-line-number="5">resamples &lt;-<span class="st"> </span><span class="kw">mulset</span>(mulsetDemo, <span class="dt">exclude =</span> <span class="kw">c</span>(<span class="st">&quot;outcome&quot;</span>, <span class="st">&quot;age&quot;</span>, <span class="st">&quot;gender&quot;</span>), <span class="dv">250</span>)</a>
-<a class="sourceLine" id="cb2-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb2-7" data-line-number="7">## or from CSV file</a>
-<a class="sourceLine" id="cb2-8" data-line-number="8">## mulsetDemo &lt;-fread(&quot;./data/mulsetDemo.csv&quot;, header = T, sep = ',', stringsAsFactors = FALSE, data.table = FALSE)</a>
-<a class="sourceLine" id="cb2-9" data-line-number="9">## exclude &lt;- c(&quot;come_column&quot;)</a>
-<a class="sourceLine" id="cb2-10" data-line-number="10">## resamples &lt;- mulset(mulsetDemo, exclude = exclude, include = c(&quot;samples_count&quot;, &quot;datapoints&quot;), maxIntersections = 250, hashMethod = &quot;sha1&quot;)</a></code></pre></div>
+<a class="sourceLine" id="cb2-4" data-line-number="4">resamples &lt;-<span class="st"> </span><span class="kw">mulset</span>(mulsetDemo, <span class="dt">exclude =</span> <span class="kw">c</span>(<span class="st">&quot;outcome&quot;</span>, <span class="st">&quot;age&quot;</span>, <span class="st">&quot;gender&quot;</span>), <span class="dv">250</span>)</a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6">## or from CSV file</a>
+<a class="sourceLine" id="cb2-7" data-line-number="7">## mulsetDemo &lt;-fread(&quot;./data/mulsetDemo.csv&quot;, header = T, sep = ',', stringsAsFactors = FALSE, data.table = FALSE)</a>
+<a class="sourceLine" id="cb2-8" data-line-number="8">## exclude &lt;- c(&quot;come_column&quot;)</a>
+<a class="sourceLine" id="cb2-9" data-line-number="9">## resamples &lt;- mulset(mulsetDemo, exclude = exclude, include = c(&quot;samples_count&quot;, &quot;datapoints&quot;), maxIntersections = 250, hashMethod = &quot;sha1&quot;)</a></code></pre></div>
 <h2 id="support-and-bugs">Support and Bugs</h2>
 <p>If you are having trouble, have found a bug, or want to contribute don’t be shy. <a href="https://github.com/LogIN-/mulset/issues">Open a ticket</a> on GitHub.</p>
 <h2 id="license">License</h2>

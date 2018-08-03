@@ -13,3 +13,7 @@ images
 ^\.Rhistory$
 .git
 .gitignore
+^.*\.o$
+\.o$
+\.so$
+\.dll$
