@@ -64,7 +64,6 @@ mulset <- function(data, exclude = NULL, include = c("samples", "samples_count",
 
 		for (featuresTempID in names(featureSets)) {
 			featuresTempValue <- featureSets[[featuresTempID]]
-
 			featuresShared <- intersect(featuresTempValue, sampleFeatures)
 			## featuresShared <- intersection(featuresTempValue, sampleFeatures)
 
@@ -92,7 +91,7 @@ mulset <- function(data, exclude = NULL, include = c("samples", "samples_count",
 		## Get number of samples for each feature set
 		for (key in names(featureSetsShared)) {
 
-			queryData <- data[stats::complete.cases(featureSetsShared[[key]]$features), ] 
+			queryData <- data[complete.cases(data[ , featureSetsShared[[key]]$features]), ] 
 			totalSamples <- nrow(queryData)
 
 			if('samples' %in% include){
@@ -114,29 +113,19 @@ mulset <- function(data, exclude = NULL, include = c("samples", "samples_count",
 	return(featureSetsShared)
 }
 
-##	library(data.table)
-##	library(gtools)
-##	library(digest)
-##	source("./utils.R")
-##	source("./intersection.R")
-##	source("./RcppExports.R")
-##	mulsetDemo <-fread("../data/mulsetDemo.csv", header = T, sep = ',', stringsAsFactors = FALSE, data.table = FALSE)
-##	exclude <- c("outcome", "age", "gender")
-##	
-##	
-##	system.time({ 
-##		resamples <- mulset(mulsetDemo, exclude = exclude, include = c("samples_count", "datapoints"), maxIntersections = 2, hashMethod = "sha1", resetHashIDs = FALSE)
-##		resamples <- as.data.frame(t(sapply(resamples,c)))
-##	})
-##	resamples
-##system.time( replicate(50, mulset(mulsetDemo, exclude = exclude, include = c("samples_count", "datapoints"), maxIntersections = 250, hashMethod = "md5", resetHashIDs = TRUE) ) )
-
-## > system.time( replicate(10, mulset(mulsetDemo, exclude = c("outcome", "age", "gender"), 250) ) )
-##    user  system elapsed 
-##   0.145   0.000   0.146 
-## > system.time( replicate(100, mulset(mulsetDemo, exclude = c("outcome", "age", "gender"), 250) ) )
-##    user  system elapsed 
-##   1.535   0.003   1.538 
-## > system.time( replicate(250, mulset(mulsetDemo, exclude = c("outcome", "age", "gender"), 250) ) )
-##    user  system elapsed 
-##   3.655   0.000   3.655 
+## library(data.table)
+## library(gtools)
+## library(digest)
+## source("./utils.R")
+## source("./intersection.R")
+## source("./RcppExports.R")
+## 
+## mulsetDemo <-fread("../data/test.csv", header = T, sep = ',', stringsAsFactors = FALSE, data.table = FALSE)
+## exclude <- NULL
+## 
+## 
+## system.time({ 
+## 	resamples <- mulset(mulsetDemo, exclude = exclude, include = c("samples_count", "datapoints"), maxIntersections = 2, hashMethod = "sha1", resetHashIDs = FALSE)
+## 	resamples <- as.data.frame(t(sapply(resamples,c)))
+## 	print(resamples)
+## })
