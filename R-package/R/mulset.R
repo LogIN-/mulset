@@ -120,9 +120,8 @@ mulset <- function(data, exclude = NULL, include = c("samples", "samples_count",
 ## source("./intersection.R")
 ## source("./RcppExports.R")
 ## 
-## mulsetDemo <-fread("../data/test.csv", header = T, sep = ',', stringsAsFactors = FALSE, data.table = FALSE)
+## mulsetDemo <-fread("../data/test.csv", header = T, sep = '\t', stringsAsFactors = FALSE, data.table = FALSE)
 ## exclude <- NULL
-## 
 ## 
 ## system.time({ 
 ## 	resamples <- mulset(mulsetDemo, exclude = exclude, include = c("samples_count", "datapoints"), maxIntersections = 2, hashMethod = "sha1", resetHashIDs = FALSE)

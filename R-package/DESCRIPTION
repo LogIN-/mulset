@@ -9,7 +9,8 @@ Maintainer: Ivan Tomic <info@ivantomic.com>
 Packaged: Ivan Tomic <info@ivantomic.com>
 Imports:
 	gtools,
-	digest
+	digest,
+    Rcpp
 Depends:
 	R (>= 3.4.0)
 Suggests:
@@ -23,3 +24,4 @@ LazyData: yes
 RoxygenNote: 6.1.0
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
+LinkingTo: Rcpp
