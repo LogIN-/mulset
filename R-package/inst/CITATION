@@ -3,14 +3,16 @@ citHeader("To cite mulset in publications use:")
 citEntry(entry = "Article",
   title        = "{mulset}: An {R} Package for Intersection Generation",
   author       = personList(as.person("Adriana Tomic")),
-  journal      = "",
-  year         = "",
+  journal      = "bioRxiv",
+  year         = "2019",
   volume       = "",
   number       = "",
   pages        = "",
-  url          = "http://www.jstatsoft.org/v54/i02/",
+  url          = "https://www.biorxiv.org/content/early/2019/02/10/545186",
 
   textVersion  =
-  paste("Adriana Tomic",
-        "mulset: An R Package for Intersection Generation")
+  paste("Adriana Tomic, Ivan Tomic, Yael Rosenberg-Hasson, Cornelia L. Dekker, Holden T. Maecker, Mark M. Davis.",
+        "SIMON, an automated machine learning system reveals immune signatures of influenza vaccine responses.",
+        "Preprint available from bioRxiv 545186",
+        "doi: https://doi.org/10.1101/545186")
 )
