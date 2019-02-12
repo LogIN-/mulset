@@ -17,3 +17,6 @@ images
 \.o$
 \.so$
 \.dll$
+.RData
+.Rhistory
+.git

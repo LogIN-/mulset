@@ -16,6 +16,7 @@
 #' 	You can convert this to data-frame following example provided or use it as it is.
 #' @importFrom gtools mixedsort
 #' @importFrom digest digest
+#' @importFrom stats complete.cases
 #' @examples
 #' data(mulsetDemo)
 #' print(head(mulsetDemo))
@@ -112,19 +113,3 @@ mulset <- function(data, exclude = NULL, include = c("samples", "samples_count",
 
 	return(featureSetsShared)
 }
-
-## library(data.table)
-## library(gtools)
-## library(digest)
-## source("./utils.R")
-## source("./intersection.R")
-## source("./RcppExports.R")
-## 
-## mulsetDemo <-fread("../data/test.csv", header = T, sep = '\t', stringsAsFactors = FALSE, data.table = FALSE)
-## exclude <- NULL
-## 
-## system.time({ 
-## 	resamples <- mulset(mulsetDemo, exclude = exclude, include = c("samples_count", "datapoints"), maxIntersections = 2, hashMethod = "sha1", resetHashIDs = FALSE)
-## 	resamples <- as.data.frame(t(sapply(resamples,c)))
-## 	print(resamples)
-## })
