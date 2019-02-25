@@ -22,7 +22,7 @@
 #' print(head(mulsetDemo))
 #' resamples <- mulset(mulsetDemo, exclude = c("outcome", "age", "gender"), maxIntersections = 250)
 #' ## Loop through returned list or convert it to data-frame
-#' resamplesFrame <- as.data.frame(t(sapply(resamples,c)))
+#' ## resamplesFrame <- as.data.frame(t(sapply(resamples,c)))
 #' @export mulset
 mulset <- function(data, exclude = NULL, include = c("samples", "samples_count", "datapoints"), maxIntersections = NULL, hashMethod = "md5", resetHashIDs = FALSE){
 	if(!is.data.frame(data)){

@@ -37,7 +37,7 @@ data(mulsetDemo)
 print(head(mulsetDemo))
 resamples <- mulset(mulsetDemo, exclude = c("outcome", "age", "gender"), maxIntersections = 250)
 ## Loop through returned list or convert it to data-frame
-resamplesFrame <- as.data.frame(t(sapply(resamples,c)))
+## resamplesFrame <- as.data.frame(t(sapply(resamples,c)))
 }
 \keyword{data}
 \keyword{intersection,}
