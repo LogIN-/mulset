@@ -5,8 +5,7 @@
 \title{A mulset function}
 \usage{
 mulset(data, exclude = NULL, include = c("samples", "samples_count",
-  "datapoints"), maxIntersections = NULL, hashMethod = "md5",
-  resetHashIDs = FALSE)
+  "datapoints"), maxIntersections = NULL, hashMethod = "md5")
 }
 \arguments{
 \item{data}{Data frame containing your data}
@@ -18,8 +17,6 @@ mulset(data, exclude = NULL, include = c("samples", "samples_count",
 \item{maxIntersections}{Maximum number of unique datasets to generate, if NULL all datasets will be generated}
 
 \item{hashMethod}{Hashing method to use for unique sets identification. Available choices: md5(default), sha1, crc32, sha256, sha512, xxhash32, xxhash64, murmur32}
-
-\item{resetHashIDs}{Should we reset return list keys or keep original features hash as a key value}
 }
 \value{
 If any intersections are found it returns a list that contains all available multi-set intersections

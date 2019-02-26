@@ -10,7 +10,6 @@
 #' @param include List of attributes which will be shown in results. Possible values are: c("samples", "samples_count", "datapoints"). If parameter is set to NULL only c("features", "feature_count") will be returned.
 #' @param maxIntersections Maximum number of unique datasets to generate, if NULL all datasets will be generated
 #' @param hashMethod Hashing method to use for unique sets identification. Available choices: md5(default), sha1, crc32, sha256, sha512, xxhash32, xxhash64, murmur32
-#' @param resetHashIDs Should we reset return list keys or keep original features hash as a key value
 #' @keywords mulset, multi-set intersection, table intersection, missing data
 #' @return If any intersections are found it returns a list that contains all available multi-set intersections
 #' 	You can convert this to data-frame following example provided or use it as it is.
@@ -24,7 +23,7 @@
 #' ## Loop through returned list or convert it to data-frame
 #' ## resamplesFrame <- as.data.frame(t(sapply(resamples,c)))
 #' @export mulset
-mulset <- function(data, exclude = NULL, include = c("samples", "samples_count", "datapoints"), maxIntersections = NULL, hashMethod = "md5", resetHashIDs = FALSE){
+mulset <- function(data, exclude = NULL, include = c("samples", "samples_count", "datapoints"), maxIntersections = NULL, hashMethod = "md5"){
 	if(!is.data.frame(data)){
 		 stop("data argument must be a valid data frame. Please check mulsetDemo data that is distributed with a package.")
 	}
@@ -74,6 +73,7 @@ mulset <- function(data, exclude = NULL, include = c("samples", "samples_count",
 		
 				if (is.null(featureSetsShared[[featuresSharedID]])) {
 					featureSetsShared[[featuresSharedID]] <- list(
+						features_hash = featuresSharedID,
 						feature_count = length(featuresShared),
 						features = featuresShared
 					)
@@ -106,10 +106,8 @@ mulset <- function(data, exclude = NULL, include = c("samples", "samples_count",
 			}
 		}
 	}
-
-	if(!isTRUE(resetHashIDs)){
-		names(featureSetsShared) <- seq(1, length(featureSetsShared))	
-	}	
+	## Reset return list keys
+	names(featureSetsShared) <- seq(1, length(featureSetsShared))	
 
 	return(featureSetsShared)
 }
