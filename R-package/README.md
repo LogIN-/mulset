@@ -1,11 +1,12 @@
+mulset
+================
+Ivan Tomic <info@ivantomic.com>
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# mulset
-
-The goal of mulset is to allow you to generate specific type of
-multi-set intersections. It searches for multi set intersections between
-rows and corresponding column identifiers.
+The goal of mulset is to generate specific type of multi-set
+intersections. It searches for multi set intersections between rows and
+corresponding column identifiers.
 
 ## Installation
 

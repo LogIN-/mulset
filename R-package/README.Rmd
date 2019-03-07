@@ -1,5 +1,11 @@
 ---
+title: "mulset"
+author: "Ivan Tomic <info@ivantomic.com>"
 output: github_document
+vignette: >
+  %VignetteIndexEntry{mulset}
+  %VignetteEngine{knitr::rmarkdown}
+  usepackage[utf8]{inputenc}
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -12,10 +18,7 @@ knitr::opts_chunk$set(
   out.width = "100%"
 )
 ```
-# mulset
-
-The goal of mulset is to allow you to generate specific type of multi-set intersections. It searches for multi set intersections between rows and corresponding column identifiers.
-
+The goal of mulset is to generate specific type of multi-set intersections. It searches for multi set intersections between rows and corresponding column identifiers.
 
 ## Installation
 

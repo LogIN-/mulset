@@ -1,10 +1,14 @@
 Package: mulset
 Version: 1.0.0
 Title: Multiset Intersection Generator
-Date: 2019-07-30
-Authors@R: c(person("Ivan", "Tomic", role=c("aut","cre","cph"), email="info@ivantomic.com"), person("Adriana", "Tomic", role=c("aut","ctb"), email="atomic@stanford.edu"))
+Date: 2019-03-7
+Authors@R: c(person("Ivan", "Tomic", role=c("aut","cre","cph"), email="info@ivantomic.com"), 
+			person("Adriana", "Tomic", role=c("aut","ctb"), email="atomic@stanford.edu", comment = c(ORCID = "0000-0001-9885-3535")))
 Author: Ivan Tomic [aut, cre, cph], Adriana Tomic [aut, ctb]
-Description: Compute efficient data distributions from highly inconsistent datasets with many missing values using multi-set intersections. Based upon hash functions, mulset can quickly identify intersections from very large matrices of input vectors across columns and rows and thus provides scalable solution for dealing with missing values. This package was published in Tomic et al, (2019).
+Description: Computes efficient data distributions from highly inconsistent datasets with many missing values using multi-set intersections. 
+	Based upon hash functions, 'mulset' can quickly identify intersections from very large matrices of input vectors across columns and rows and thus provides 
+	scalable solution for dealing with missing values.
+	Tomic et al. (2019) <doi:10.1101/545186>
 Maintainer: Ivan Tomic <info@ivantomic.com>
 Packaged: Ivan Tomic <info@ivantomic.com>
 Imports:
@@ -13,14 +17,11 @@ Imports:
     stats
 Depends:
 	R (>= 3.4.0)
-Suggests:
-    knitr
 URL: https://github.com/LogIN-/mulset
 BugReports: https://github.com/LogIN-/mulset/issues
 License: EUPL (>=1.2)
 Encoding: UTF-8
 LazyLoad: yes
 LazyData: yes
-RoxygenNote: 6.1.1
+RoxygenNote: 6.1.1.9000
 Roxygen: list(markdown = TRUE)
-VignetteBuilder: knitr
